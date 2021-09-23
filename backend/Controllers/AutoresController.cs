@@ -37,14 +37,14 @@ namespace backend.Controllers
         }
 
         [HttpGet("{id:int}")]
-        public async Task<ActionResult<Autor>> Get(int id)
+        public ActionResult<Autor> Get(int id)
         {
-            var autor = await context.Autores.FirstOrDefaultAsync(c => c.Id == id);
+            var autor = context.Autores.FirstOrDefault(c => c.Id == id);
             if (autor == null)
             {
                 return NotFound();
             }
-            return autor;
+            return Ok(autor);
         }
 
         //[HttpGet("{id:int}/{param2}")] //=> api/autores/1/otroparametro
