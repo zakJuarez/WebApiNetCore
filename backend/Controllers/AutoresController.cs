@@ -30,8 +30,8 @@ namespace backend.Controllers
             //};
         }
 
-        [HttpGet("primero")]
-        public async Task<ActionResult<Autor>> PrimerAutor()
+        [HttpGet("primero")]//api/autores/primero?nombre=IsaacJuarez&Edad=123
+        public async Task<ActionResult<Autor>> PrimerAutor([FromHeader] int MiValor, [FromQuery]string parametros)
         {
             return await context.Autores.FirstOrDefaultAsync();
         }
@@ -39,11 +39,11 @@ namespace backend.Controllers
         [HttpGet("primero2")]
         public ActionResult<Autor> PrimerAutor2()
         {
-            return new Autor() { Nombre: "Dawn Brown." };
+            return new Autor() { Nombre= "Dawn Brown." };
         }
 
         [HttpGet("{id:int}")]
-        public async Task<ActionResult<Autor>> Get(int id)
+        public async Task<ActionResult<Autor>> Get([FromRoute]int id)
         {
             var autor = await context.Autores.FirstOrDefaultAsync(c => c.Id == id);
             if (autor == null)
@@ -78,7 +78,7 @@ namespace backend.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> Post(Autor autor)
+        public async Task<ActionResult> Post([FromBody]Autor autor)
         {
             context.Add(autor);
             await context.SaveChangesAsync();
