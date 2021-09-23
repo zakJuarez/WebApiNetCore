@@ -36,10 +36,16 @@ namespace backend.Controllers
             return await context.Autores.FirstOrDefaultAsync();
         }
 
-        [HttpGet("{id:int}")]
-        public ActionResult<Autor> Get(int id)
+        [HttpGet("primero2")]
+        public ActionResult<Autor> PrimerAutor2()
         {
-            var autor = context.Autores.FirstOrDefault(c => c.Id == id);
+            return new Autor() { Nombre: "Dawn Brown." };
+        }
+
+        [HttpGet("{id:int}")]
+        public async Task<ActionResult<Autor>> Get(int id)
+        {
+            var autor = await context.Autores.FirstOrDefaultAsync(c => c.Id == id);
             if (autor == null)
             {
                 return NotFound();
